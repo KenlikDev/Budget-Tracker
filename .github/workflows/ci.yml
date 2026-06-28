@@ -65,7 +65,7 @@ jobs:
           cache-read-only: ${{ github.ref != 'refs/heads/develop' }}
 
       - name: Run All KMP Unit Tests
-        run: ./gradlew check --no-daemon --stacktrace
+        run: ./gradlew allTests --no-daemon --stacktrace
 
   build-apps:
     name: Build Cross-Platform Targets
@@ -92,7 +92,9 @@ jobs:
         run: |
           ./gradlew \
             :app:androidApp:assembleDebug \
-            :app:desktopApp:packageDeb \
-            :server:build \
+            :app:desktopApp:createDistributable \
+            :app:webApp:jsBrowserProductionWebpack \
+            :app:webApp:wasmJsBrowserProductionWebpack \
+            :server:buildFatJar \
             --no-daemon \
             --stacktrace
