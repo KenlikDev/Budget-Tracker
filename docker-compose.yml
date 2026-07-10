@@ -1,0 +1,17 @@
+services:
+  budget-tracker-server:
+    container_name: budget-tracker-server
+    image: budget-tracker-server:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - SERVER_PORT=8080
+      - KTOR_ENV=production
+    restart: unless-stopped
+
+    healthcheck:
+      test: ["CMD", "wget", "--no-verbose", "--tries=1", "--spider", "http://localhost:8080/health"]
+      interval: 10s
+      timeout: 3s
+      retries: 3
+      start_period: 15s
