@@ -17,3 +17,15 @@ dependencies {
     testImplementation(libs.ktor.serverTestHost)
     testImplementation(libs.kotlin.testJunit)
 }
+
+jib {
+    from {
+        image = "eclipse-temurin:21-jre-alpine"
+    }
+    to {
+        image = "budget-tracker-server:latest"
+    }
+    container {
+        ports = listOf("8080")
+    }
+}
